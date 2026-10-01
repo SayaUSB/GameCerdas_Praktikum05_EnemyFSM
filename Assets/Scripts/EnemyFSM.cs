@@ -104,6 +104,33 @@ public class EnemyFSM : MonoBehaviour
 
         if (player != null)
             playerHealth = player.GetComponent<PlayerHealth>();
+
+        // Fallback: kalau waypoint / safe point belum di-assign di Inspector,
+        // ambil otomatis dari objek "PatrolPoints" (semua child-nya) dan "SafePoint".
+        if (patrolPoints == null || patrolPoints.Length == 0)
+        {
+            GameObject root = GameObject.Find("PatrolPoints");
+
+            if (root != null && root.transform.childCount > 0)
+            {
+                patrolPoints = new Transform[root.transform.childCount];
+
+                for (int i = 0; i < patrolPoints.Length; i++)
+                    patrolPoints[i] = root.transform.GetChild(i);
+            }
+            else
+            {
+                Debug.LogWarning(name + ": patrolPoints kosong & objek 'PatrolPoints' tidak ditemukan.");
+            }
+        }
+
+        if (safePoint == null)
+        {
+            GameObject sp = GameObject.Find("SafePoint");
+
+            if (sp != null)
+                safePoint = sp.transform;
+        }
     }
 
     private void Start()

@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 public class SimplePlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public float sprintMultiplier = 1.7f; // Tahan Left Shift untuk lari
     public float rotationSpeed = 10f;
     public Transform cameraTransform; // Drag Main Camera ke kolom ini
 
     private CharacterController controller;
+
+    public bool IsSprinting { get; private set; }
 
     void Start()
     {
@@ -22,6 +25,8 @@ public class SimplePlayerController : MonoBehaviour
 
     void Update()
     {
+        IsSprinting = false;
+
         // 1. Baca input keyboard
         float x = 0;
         float z = 0;
@@ -39,6 +44,10 @@ public class SimplePlayerController : MonoBehaviour
         // 2. Jika ada tombol arah yang ditekan
         if (inputDir.magnitude >= 0.1f)
         {
+            // Sprint: tahan Left Shift sambil bergerak
+            IsSprinting = Keyboard.current != null && Keyboard.current.leftShiftKey.isPressed;
+            float currentSpeed = moveSpeed * (IsSprinting ? sprintMultiplier : 1f);
+
             // Hitung arah gerak relatif terhadap orientasi horizontal kamera
             Vector3 camForward = cameraTransform.forward;
             Vector3 camRight = cameraTransform.right;
@@ -58,11 +67,11 @@ public class SimplePlayerController : MonoBehaviour
             // Gerakkan player
             if (controller != null)
             {
-                controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+                controller.Move(moveDirection * currentSpeed * Time.deltaTime);
             }
             else
             {
-                transform.position += moveDirection * moveSpeed * Time.deltaTime;
+                transform.position += moveDirection * currentSpeed * Time.deltaTime;
             }
         }
     }

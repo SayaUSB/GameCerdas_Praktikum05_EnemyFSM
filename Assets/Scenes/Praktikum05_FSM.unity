@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 72021599}
   - component: {fileID: 72021598}
   - component: {fileID: 72021601}
+  - component: {fileID: 72021602}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -438,6 +439,27 @@ MonoBehaviour:
   safePointTolerance: 1
   healRatePerSecond: 15
   currentState: 0
+--- !u!114 &72021602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72021591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1868af03f293ab4a9f1b9e316f7108e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProceduralAnimator
+  strideRate: 2.2
+  bobHeight: 0.07
+  maxLean: 22
+  maxArmSwing: 55
+  attackDuration: 0.28
+  enemyAttackInterval: 1.5
+  lungeDistance: 0.25
+  hurtFlashDuration: 0.18
+  tintByEnemyState: 1
 --- !u!1 &162801811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,6 +1261,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 459252177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1418962209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1418962210}
+  - component: {fileID: 1418962211}
+  m_Layer: 0
+  m_Name: StateHUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1418962210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418962209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1418962211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418962209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e808f936a12d245ab75e251752533b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StateHUD
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  movingThreshold: 0.05
+  hurtDuration: 0.6
 --- !u!1 &1424396201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1387,8 @@ GameObject:
   - component: {fileID: 1733335007}
   - component: {fileID: 1733335008}
   - component: {fileID: 1733335009}
+  - component: {fileID: 1733335010}
+  - component: {fileID: 1733335011}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1457,6 +1529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimplePlayerController
   moveSpeed: 5
+  sprintMultiplier: 1.7
   rotationSpeed: 10
   cameraTransform: {fileID: 0}
 --- !u!114 &1733335008
@@ -1485,6 +1558,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
+--- !u!114 &1733335010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733335001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917444d21a9af6649885d66698a29002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  damage: 20
+  attackRange: 2.5
+  attackAngle: 120
+  cooldown: 0.5
+  attackStateDuration: 0.25
+--- !u!114 &1733335011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733335001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1868af03f293ab4a9f1b9e316f7108e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProceduralAnimator
+  strideRate: 2.2
+  bobHeight: 0.07
+  maxLean: 22
+  maxArmSwing: 55
+  attackDuration: 0.28
+  enemyAttackInterval: 1.5
+  lungeDistance: 0.25
+  hurtFlashDuration: 0.18
+  tintByEnemyState: 0
 --- !u!1001 &2030231817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1566,6 +1677,53 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dbf28c1bb322474d981b2dc555e28b0, type: 3}
+--- !u!1 &2050535124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2050535126}
+  - component: {fileID: 2050535125}
+  m_Layer: 0
+  m_Name: GameFlow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2050535125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050535124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b533cc88328f7bb428116f62bb6d86f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameFlow
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  endScreenDelay: 1.2
+--- !u!4 &2050535126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050535124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1583,3 +1741,5 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 459252177}
   - {fileID: 1424396202}
+  - {fileID: 1418962210}
+  - {fileID: 2050535126}
